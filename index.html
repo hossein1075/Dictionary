@@ -4,8 +4,105 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dictionary</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none' stroke='%2322c55e' stroke-width='4'>
+  <rect x='8' y='8' width='48' height='48' rx='6' ry='6' fill='%23002000' />
+  <path d='M20 20h24M20 28h24M20 36h16' stroke='%23a5f3fc' stroke-width='3' stroke-linecap='round'/>
+</svg>">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./styles/reset.css">
+    <link rel="stylesheet" href="./styles/font.css">
+    <link rel="stylesheet" href="./styles/app.css">
+    <link rel="stylesheet" href="./styles/responsive.css">
 </head>
-<body>
-    
+
+
+<body class="dictionary">
+  <div class="container py-5">
+    <header class="header">
+      <div class="header__title">My Dictionary</div>
+      <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle Dark Mode">
+        🌙
+      </button>
+    </header>
+    <div class="main">
+      <div class="dictionary__container mx-auto">
+        <h1 class="dictionary__title text-center mb-4">📘 Smart Dictionary</h1>
+  
+        <div class="dictionary__search-box search-box d-flex flex-column flex-sm-row gap-3 mb-4">
+          <input type="text" class="form-control search-box__input" placeholder="Enter a word..." />
+          <button class="btn btn-primary search-box__button">Search</button>
+        </div>
+  
+        <div class="dictionary__result-card result-card mb-4">
+          <h2 class="result-card__word">beautiful</h2>
+          <p class="result-card__definition">pleasing the senses or mind aesthetically.</p>
+          <p class="result-card__translation">زیبا</p>
+  
+          <div class="result-card__phonetics phonetics d-flex flex-column flex-md-row gap-3 mt-3">
+            <button class="phonetics__btn phonetics__btn--us">
+              <svg class="phonetics__flag" width="24" height="16" viewBox="0 0 7410 3900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="US Flag">
+                <rect width="7410" height="3900" fill="#b22234"/>
+                <path d="M0 450h7410v300H0zm0 600h7410v300H0zm0 600h7410v300H0zm0 600h7410v300H0zm0 600h7410v300H0zm0 600h7410v300H0z" fill="#fff"/>
+                <rect width="2964" height="2100" fill="#3c3b6e"/>
+                <g fill="#fff">
+                  <g transform="translate(494 210)">
+                    <g id="s18">
+                      <g id="s9">
+                        <g id="s5">
+                          <g id="s4">
+                            <g id="s3">
+                              <g id="s2">
+                                <g id="s1">
+                                  <path d="M247 90 270 150 335 150 282 191 300 254 247 213 194 254 212 191 159 150 224 150z"/>
+                                </g>
+                              </g>
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                  <use href="#s1" x="494" y="0"/>
+                  <use href="#s1" x="988" y="0"/>
+                  <use href="#s1" x="1482" y="0"/>
+                  <use href="#s1" x="1976" y="0"/>
+                  <use href="#s1" x="2470" y="0"/>
+                </g>
+              </svg>
+              US Pronunciation
+            </button>
+            
+            <button class="phonetics__btn phonetics__btn--uk">
+              <svg class="phonetics__flag" width="24" height="16" viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="UK Flag">
+                <rect width="60" height="30" fill="#012169"/>
+                <path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/>
+                <path d="M0 0l60 30m0-30L0 30" stroke="#c8102e" stroke-width="4"/>
+                <path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/>
+                <path d="M30 0v30M0 15h60" stroke="#c8102e" stroke-width="6"/>
+              </svg>
+              UK Pronunciation
+            </button>
+            
+          </div>
+          <p class="phonetics__ipa mt-2">/ˈbjuː.tɪ.fəl/</p>
+        </div>
+  
+        <div class="dictionary__history history">
+          <h3 class="history__title mb-3">Recent Searches</h3>
+          <ul class="history__list d-flex flex-wrap gap-2 p-0">
+            <li class="history__item">love</li>
+            <li class="history__item">hope</li>
+            <li class="history__item">dream</li>
+            <li class="history__item">freedom</li>
+            <li class="history__item">peace</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <p>© 2025 YourName — Simple Dictionary App</p>
+    </footer>    
+  </div>
 </body>
 </html>
