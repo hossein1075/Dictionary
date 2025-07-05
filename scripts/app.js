@@ -10,6 +10,8 @@ const definationWordElem = document.querySelector('.result-card__definition')
 const translationWordElem = document.querySelector('.result-card__translation')
 const phoneticsWordElem = document.querySelector('.phonetics__ipa')
 const historyListElem = document.querySelector('.history__list')
+const kindWord = document.querySelector('.result-card__pos')
+const exampleWord = document.querySelector('.result-card__example')
 const usBtn = document.querySelector('.phonetics__btn--us');
 const ukBtn = document.querySelector('.phonetics__btn--uk');
 let audioUS = null
@@ -52,6 +54,14 @@ inputBtn.addEventListener('click', ()=> {
         fetchDictionaryEN(word)
     }
 })
+inputElem.addEventListener('keyup', (e)=> {
+    let word = inputElem.value.trim()
+    if(e.key === 'Enter') {
+        if(word) {
+            fetchDictionaryEN(word)
+        }
+    }
+})
 
 
 // en
@@ -74,6 +84,14 @@ async function fetchDictionaryEN(word) {
 
         audioUS = usAudioData ? new Audio(usAudioData.audio) : null
         audioUK = ukAudioData ? new Audio(ukAudioData.audio) : null
+
+        // for specify kind word
+        const partOfSpeech = data[0].meanings[0].partOfSpeech
+        kindWord.innerHTML = `(${partOfSpeech})` 
+
+        // example word
+        const example = data[0].meanings[0].definitions[0].example
+        exampleWord.innerHTML = example ? `"${example}"` : '' ;
 
         inputElem.value = ''
         fetchDictionaryFA(word)
@@ -115,9 +133,26 @@ function updateHistory(history) {
         const li = document.createElement('li')
         li.classList.add('history__item')
         li.innerHTML = word
+
+        // delete item
+        li.addEventListener('click', ()=> {
+            deleteItem(word)
+        })
+
         historyListElem.appendChild(li)
     })
 }
+// delete item
+function deleteItem(word) {
+    let history = JSON.parse(localStorage.getItem('dictionary')) || []
+
+    // delete
+    history = history.filter(item => item !== word)
+
+    localStorage.setItem('dictionary', JSON.stringify(history))
+    updateHistory(history)
+}
+
 
 // load Dom recent word
 window.addEventListener('DOMContentLoaded', () => {
