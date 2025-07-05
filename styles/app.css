@@ -138,8 +138,26 @@ body, .dictionary__container, .header, .result-card, .phonetics__btn, .history, 
   margin-bottom: 0.3rem;
   color: #e2e8f0;
 }
+.result-card__pos {
+  font-style: italic;
+  font-size: 1.2rem;
+  color: #94a3b8;
+  margin-bottom: 0.5rem;
+}
+
+.result-card__example {
+  font-size: 1rem;
+  background-color: #1e293b;
+  border-left: 4px solid #22c55e;
+  padding: 0.8rem 1rem;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  color: #cbd5e1;
+  font-style: italic;
+}
 
 .result-card__translation {
+  margin-top: .5rem;
   margin-bottom: 1rem;
   font-weight: bold;
   color: #22c55e;
@@ -251,6 +269,19 @@ body.light-mode .phonetics__btn {
 body.light-mode .phonetics__btn:hover {
   background-color: #cbd5e1;
 }
+body.light-mode .result-card__definition {
+  color: #475569; 
+}
+body.light-mode .result-card__pos {
+  color: #64748b;
+}
+
+body.light-mode .result-card__example {
+  background-color: #f1f5f9;
+  border-left: 4px solid #16a34a;
+  color: #334155;
+}
+
 
 body.light-mode .phonetics__ipa {
   color: #334155;

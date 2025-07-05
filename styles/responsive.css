@@ -10,6 +10,13 @@
       .phonetics__ipa {
         font-size: 1.2rem;
       }
+      .result-card__pos {
+        font-size: 1.1rem;
+      }
+      
+      .result-card__example {
+        font-size: 1.2rem;
+      }
 }
 
 
@@ -23,6 +30,13 @@
       }
       .phonetics__ipa {
         font-size: 1.4rem;
+      }
+      .result-card__pos {
+        font-size: 1.3rem;
+      }
+      
+      .result-card__example {
+        font-size: 1.3rem;
       }
  }
 
