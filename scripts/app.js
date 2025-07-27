@@ -1,4 +1,5 @@
 "use strict"
+
 // dark mode / light mode
 const toggleBtn = document.getElementById('darkModeToggle')
 
@@ -16,6 +17,10 @@ const usBtn = document.querySelector('.phonetics__btn--us');
 const ukBtn = document.querySelector('.phonetics__btn--uk');
 let audioUS = null
 let audioUK = null
+// Modal
+const modal = document.querySelector('.custom-toast')
+const closeModal = document.querySelector('.toast-close')
+
 // dark mode / light mode
 const saveMode = localStorage.getItem('theme')
 
@@ -36,6 +41,7 @@ toggleBtn.addEventListener('click', ()=> {
         localStorage.setItem('theme', 'dark')
     }
 })
+//  API Audio
 usBtn.addEventListener('click', ()=> {
     if(audioUS) {
         audioUS.play()
@@ -49,53 +55,92 @@ ukBtn.addEventListener('click', ()=> {
 // API
 inputBtn.addEventListener('click', ()=> {
     let word = inputElem.value.trim()
+    inputBtn.disabled = word === ''
 
     if(word) {
         fetchDictionaryEN(word)
+    } else {
+        modal.classList.add('show')
     }
+    setTimeout(() => {
+        modal.classList.remove('show')
+    }, 4000);
 })
+closeModal.addEventListener('click', ()=> {
+    modal.classList.remove('show');
+  });
 inputElem.addEventListener('keyup', (e)=> {
     let word = inputElem.value.trim()
+    inputBtn.disabled = word === ''
     if(e.key === 'Enter') {
         if(word) {
             fetchDictionaryEN(word)
+        } else {
+            modal.classList.add('show')
         }
+        setTimeout(() => {
+            modal.classList.remove('show')
+        }, 4000);
     }
 })
-
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('show')) {
+      modal.classList.remove('show');
+    }
+  });
 
 // en
 
-
 async function fetchDictionaryEN(word) {
-        const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
-        const data = await res.json()
+    inputBtn.disabled = true
+  try {
+    const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
 
-        const definition = data[0].meanings[0].definitions[0].definition
-        const phonetics = data[0].phonetics[0].text
-
-        wordElem.innerHTML = word // input.value
-        definationWordElem.innerHTML = definition // definition word
-        phoneticsWordElem.textContent = phonetics // phonetic word
-        // audio
-        const phoneticsList = data[0].phonetics 
-        const usAudioData = phoneticsList.find(p => p.audio.includes('us'))
-        const ukAudioData = phoneticsList.find(p => p.audio.includes('uk'))
-
-        audioUS = usAudioData ? new Audio(usAudioData.audio) : null
-        audioUK = ukAudioData ? new Audio(ukAudioData.audio) : null
-
-        // for specify kind word
-        const partOfSpeech = data[0].meanings[0].partOfSpeech
-        kindWord.innerHTML = `(${partOfSpeech})` 
-
-        // example word
-        const example = data[0].meanings[0].definitions[0].example
-        exampleWord.innerHTML = example ? `"${example}"` : '' ;
-
+    if(!res.ok) {
+        modal.classList.add('show')
+        setTimeout(() => {
+            modal.classList.remove('show')
+        }, 4000);
         inputElem.value = ''
-        fetchDictionaryFA(word)
-        saveHistory(word)
+        return
+    }
+    const data = await res.json()
+
+    const definition = data[0].meanings[0].definitions[0].definition
+    const phonetics = data[0].phonetics[0].text
+
+    wordElem.innerHTML = word // input.value
+    definationWordElem.innerHTML = definition // definition word
+    phoneticsWordElem.textContent = phonetics // phonetic word
+    // audio
+    const phoneticsList = data[0].phonetics 
+    const usAudioData = phoneticsList.find(p => p.audio.includes('us'))
+    const ukAudioData = phoneticsList.find(p => p.audio.includes('uk'))
+
+    audioUS = usAudioData ? new Audio(usAudioData.audio) : null
+    audioUK = ukAudioData ? new Audio(ukAudioData.audio) : null
+
+    // for specify kind word
+    const partOfSpeech = data[0].meanings[0].partOfSpeech
+    kindWord.innerHTML = `(${partOfSpeech})` 
+
+    // example word
+    const example = data[0].meanings[0].definitions[0].example
+    exampleWord.innerHTML = example ? `"${example}"` : '' ;
+
+    inputElem.value = ''
+    fetchDictionaryFA(word)
+    saveHistory(word)
+  } catch (err) {
+    console.log(err);
+    inputElem.value = ''
+    modal.classList.add('show')
+setTimeout(() => {
+    modal.classList.remove('show')
+}, 4000);
+  } finally{
+    inputBtn.disabled = false
+  }
 }
 // fa
 
