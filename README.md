@@ -39,9 +39,11 @@ A smart English-to-Farsi dictionary app that shows word definitions, part of spe
 
 ---
 
-## 📦 Installation
+## 📦 Live Demo
 
-No setup required. Just open the `index.html` file in your browser or deploy to GitHub Pages.
+You can view and test the project live using the link below.
+
+**🔗 [Live Demo](https://hossein1075.github.io/Dictionary/)**
 
 ---
 
